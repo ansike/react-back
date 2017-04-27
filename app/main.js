@@ -2,17 +2,6 @@ import React, {
 	Component
 } from 'react';
 import ReactDOM from 'react-dom';
-import MenuBox from './components/menu';
-import AppComponent from './components/Tab1';
-import './main.css';
-import './antd.min.css';
-import './components/menu.css';
-
-import {
-	Router,
-	Route,
-	hashHistory
-} from 'react-router';
 import {
 	Layout,
 	Icon
@@ -23,21 +12,27 @@ const {
 	Footer,
 	Sider
 } = Layout;
+import MenuBox from './components/menu';
+import './main.css';
+import './antd.min.css';
+import './components/menu.css';
 
-class App extends Component {
+class main extends Component {
 	render() {
 		return (
 			<Layout style={{ height: '100vh' }}>
 			  <Sider style={{ overflow: 'auto' }}>
 			    <div className="logo" />
+				{/*  -----------导航部分--------------  */}
 			    <MenuBox />
 			  </Sider>
 			  <Layout>
 			    <Header style={{ background: '#fff', padding: 0 }} />
 			    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-			      <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-			        ghf
-			      </div>
+					<div style={{ padding: 24, background: '#fff', }}>
+						{/*  -----------主体内容部分--------------  */}
+				      	{this.props.children}
+					</div>
 			    </Content>
 			    <Footer style={{ textAlign: 'center' }}>
 			      Askfuture ©2016 Created by ask
@@ -48,4 +43,4 @@ class App extends Component {
 	}
 }
 
-ReactDOM.render( < App / > , document.getElementById('content'));
+export default main
