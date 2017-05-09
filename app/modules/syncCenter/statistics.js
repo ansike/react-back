@@ -1,7 +1,7 @@
 import React, {
 	Component
 } from 'react';
-
+var path = require('path');
 import './statistics.less';
 
 import {
@@ -19,6 +19,7 @@ class EditableCell extends React.Component {
 			value: this.props.value,
 			editable: false,
 		}
+		console.log(__dirname + "assdssssaa")
 	}
 	handleChange(e) {
 		const value = e.target.value;
@@ -78,15 +79,13 @@ class EditableCell extends React.Component {
 class statistics extends React.Component {
 	constructor(props) {
 		super(props);
+		let that = this;
 		this.columns = [{
 			title: 'name',
 			dataIndex: 'name',
 			width: '30%',
 			render: (text, record, index) => (
-				<EditableCell
-          value={text}
-          onChange={this.onCellChange(index, 'name').bind(this)}
-        />
+				<EditableCell value={text} onChange={this.onCellChange(index, 'name').bind(this)} />
 			),
 		}, {
 			title: 'age',
@@ -101,9 +100,13 @@ class statistics extends React.Component {
 				return (
 					this.state.dataSource.length > 1 ?
 					(
-						<Popconfirm title="Sure to delete?" onConfirm={() => this.onDelete(index)}>
-              <a href="#">Delete</a>
-            </Popconfirm>
+						<div>
+							<Popconfirm title="Sure to delete?" onConfirm={() => this.onDelete(index)}>
+				              <a href="#">Delete</a>
+				            </Popconfirm> 
+				            < span className = "ant-divider" / >
+							<a href="#" onClick={function(){that.showCurRowMessage(record)}} >获取数据</a>
+						</div>
 					) : null
 				);
 			},
@@ -118,12 +121,17 @@ class statistics extends React.Component {
 			}, {
 				key: '1',
 				name: 'Edward King 1',
-				age: '32',
+				age: '34',
 				address: 'London, Park Lane no. 1',
 			}],
 			count: 2,
 		};
 	}
+
+	showCurRowMessage(record) {
+		alert("key:" + record.key + " name:" + record.name + " age:" + record.age + " address:" + record.address);
+	}
+
 	onCellChange(index, key) {
 		return (value) => {
 			const dataSource = [...this.state.dataSource];
@@ -163,9 +171,9 @@ class statistics extends React.Component {
 		const columns = this.columns;
 		return (
 			<div>
-        <Button className="editable-add-btn" onClick={this.handleAdd.bind(this)}>Add</Button>
-        <Table bordered dataSource={dataSource} columns={columns} />
-      </div>
+		        <Button className="editable-add-btn" onClick={this.handleAdd.bind(this)}>Add</Button>
+		        <Table bordered dataSource={dataSource} columns={columns} />
+		    </div>
 		);
 	}
 }
